@@ -4,12 +4,15 @@
     <title>My Webpage</title>
 </head>
 <body>
-    <ul id="links">
-    {% for link in links %}
-        <li><a href="{{ link.href }}">{{ link.title }}</a></li>
+  <h1>My Webpage</h1>
+  {% for feed in feeds %}
+    <h2>{{ feed.title }}</h2>
+    <ul>
+    {% for entry in feed.entries %}
+        <li><a href="{{ entry.link }}">{{ entry.title }}</a></li>
     {% endfor %}
     </ul>
+  {% endfor %}
 
-    <h1>My Webpage</h1>
 </body>
 </html>

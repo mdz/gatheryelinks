@@ -1,16 +1,17 @@
 import os
 import feedparser
-from jinja2 import Template
+import jinja2
 
 from flask import Flask
 app = Flask(__name__)
 
 @app.route('/')
 def dump():
-  template = Template(open('template.html').read())
-  return template.render(links=[{'href': 'http://www.example.com', 'title': 'Example'}])
+  template = jinja2.Template(open('template.html').read())
+  feed = feedparser.parse('http://feeds.delicious.com/v2/rss/tag/geekfeminism')
+  return template.render(feeds=[feed])
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
