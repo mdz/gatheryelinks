@@ -5,11 +5,14 @@ import jinja2
 from flask import Flask
 app = Flask(__name__)
 
+feed_urls = ['http://feeds.delicious.com/v2/rss/tag/geekfeminism',
+             'http://feeds.pinboard.in/rss/t:geekfeminism']
+
 @app.route('/')
 def dump():
   template = jinja2.Template(open('template.html').read())
-  feed = feedparser.parse('http://feeds.delicious.com/v2/rss/tag/geekfeminism')
-  return template.render(feeds=[feed])
+  feeds = map(feedparser.parse, feed_urls)
+  return template.render(feeds=feeds)
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
