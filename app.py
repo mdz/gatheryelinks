@@ -1,12 +1,13 @@
+#!/usr/bin/python
+
+# TODO:
+# - only include links which are new since the last draft was posted
+
 import os
 import feedparser
 import jinja2
 import xmlrpclib
 import urlparse
-
-# TODO:
-# - post the draft to Wordpress
-# - only show links which are new since the last draft was posted
 
 from flask import Flask
 app = Flask(__name__)
