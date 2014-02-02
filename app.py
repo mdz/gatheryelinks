@@ -2,6 +2,7 @@ import os
 import feedparser
 import jinja2
 import xmlrpclib
+import urlparse
 
 # TODO:
 # - post the draft to Wordpress
@@ -13,6 +14,7 @@ app = Flask(__name__)
 wordpress_url = os.environ['WORDPRESS_URL']
 wordpress_user = os.environ['WORDPRESS_USER']
 wordpress_password = os.environ['WORDPRESS_PASSWORD']
+wordpress_blogid = os.environ['WORDPRESS_BLOGID']
 feed_urls = os.environ['FEEDS'].split()
 
 def get_feeds():
@@ -27,7 +29,19 @@ def preview():
 def post_draft(reset=False):
   template = jinja2.Template(open('wordpress.html').read())
   post_body = template.render(feeds=get_feeds())
-  return ''
+  xmlrpc_url = urlparse.urljoin(wordpress_url, '/xmlrpc.php')
+  print xmlrpc_url
+  server = xmlrpclib.ServerProxy(xmlrpc_url)
+  post_title = 'Automatic linkspam test'
+
+  params = { 'post_title': post_title, 'post_content': post_body,
+              'post_status': 'draft' }
+
+  post_id = server.wp.newPost(wordpress_blogid,
+              wordpress_user, wordpress_password,
+              params)
+
+  return 'Posted: %s' % post_id
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
