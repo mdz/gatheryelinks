@@ -1,10 +1,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
 <head>
-    <title>My Webpage</title>
+    <title>Gather Ye Links</title>
 </head>
 <body>
-  <h1>My Webpage</h1>
+  <h1>Gather Ye Links</h1>
+    <p>A linkspamming app for the <a href="http://geekfeminism.org">geek feminism blog</a>.</p>
   {% for feed in feeds %}
     <h2><a href="{{ feed.feed.link }}">{{ feed.feed.title }}</a></h2>
     <ul>
