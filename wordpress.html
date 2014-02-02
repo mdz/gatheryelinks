@@ -1,0 +1,22 @@
+Remember to change the URL when you clone this template for your linkspam post.
+
+Remember to check that there's not a draft already around. If there is, please post it and then set up your draft.
+
+Remember to check the publication date of links. Double check to make sure the link is recent (within the last month) and is not a repeat.
+
+Remember to delete everything above and including this line before you hit the publish button!
+
+<ul>
+{% for feed in feeds %}
+  {% for entry in feed.entries %}
+    <li><a href="{{ entry.link }}">{{ entry.title }}</a></li>
+  {% endfor %}
+{% endfor %}
+
+</ul>
+
+We link to a variety of sources, some of which are personal blogs.  If you visit other sites linked herein, we ask that you respect the commenting policy and individual culture of those sites.
+
+You can suggest links for future linkspams in comments here, or by using the "geekfeminism" tag on pinboard.in or the "#geekfeminism" tag on Twitter. Please note that we tend to stick to publishing recent links (from the last month or so).
+
+Thanks to everyone who suggested links.

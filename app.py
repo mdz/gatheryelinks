@@ -9,10 +9,16 @@ feed_urls = ['http://feeds.delicious.com/v2/rss/tag/geekfeminism',
              'http://feeds.pinboard.in/rss/t:geekfeminism']
 
 @app.route('/')
-def dump():
-  template = jinja2.Template(open('template.html').read())
+def preview():
+  template = jinja2.Template(open('preview.html').read())
   feeds = map(feedparser.parse, feed_urls)
   return template.render(feeds=feeds)
+
+@app.route('/post-draft')
+def post_draft():
+  template = jinja2.Template(open('wordpress.html').read())
+  feeds = map(feedparser.parse, feed_urls)
+  post_body = template.render(feeds=feeds)
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
