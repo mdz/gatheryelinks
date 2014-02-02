@@ -2,6 +2,10 @@ import os
 import feedparser
 import jinja2
 
+# TODO:
+# - only show links which are new since the last draft was posted
+# - post the draft to Wordpress
+
 from flask import Flask
 app = Flask(__name__)
 
@@ -15,7 +19,7 @@ def preview():
   return template.render(feeds=feeds)
 
 @app.route('/post-draft')
-def post_draft():
+def post_draft(reset=False):
   template = jinja2.Template(open('wordpress.html').read())
   feeds = map(feedparser.parse, feed_urls)
   post_body = template.render(feeds=feeds)
